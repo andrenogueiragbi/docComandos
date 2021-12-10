@@ -15,15 +15,14 @@ module.exports = {
 };*/
 
 /*TO POSTGRES*/
-//storage: './__tests__/database.sqlite',
 module.exports = {
-    dialect: process.env.DB_DIALECT_TESTE || 'sqlite',
+    dialect: process.env.DB_DIALECT_TEST || 'sqlite',
     database: process.env.DATABASE,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: process.env.DB_HOST,
     port: 5432,
-    storage: process.env.DB_LOCAL_TESTE || './database.sqlite',
+    storage: process.env.DB_LOCAL_TEST || 'databaseProdution.sqlite',
     dialectOptions: {
         ssl: { rejectUnauthorized: false }
     },

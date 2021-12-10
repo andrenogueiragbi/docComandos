@@ -4,6 +4,7 @@ const dbConfig = require('../config/database');
 
 const Categories = require('../modals/Categories')
 const Commands = require('../modals/Commands')
+
 const connection = new Sequelize(dbConfig);
 
 /*try{

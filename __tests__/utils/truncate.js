@@ -1,14 +1,25 @@
-
-
 const conn = require('../../src/database')
-const connModals = require('../../src/modals/Activity')
+const connCategory = require('../../src/modals/Categories')
+const connCommands = require('../../src/modals/Commands')
 
 
 
-module.exports = () => {
+const dropCategory = async ()  => {
     return Promise.all(
-      Object.keys(connModals.sequelize.models).map(key => {
-        return connModals.sequelize.models[key].destroy({ truncate: true, force: true });
-      })
+      Object.keys(connCategory.sequelize.models).map(key => {
+        return connCategory.sequelize.models[key].destroy({ truncate: true, force: true });
+      }),
+
     );
-  };
+  }
+
+  const dropCommands = async () => {
+    return Promise.all(
+      Object.keys(connCommands.sequelize.models).map(key => {
+        return connCommands.sequelize.models[key].destroy({ truncate: true, force: true });
+      }),
+
+    );
+  }
+
+  module.exports = {dropCategory,dropCommands }

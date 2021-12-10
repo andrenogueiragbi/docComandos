@@ -1,28 +1,35 @@
 const Commands = require('../modals/Commands');
+const searchCommands = require('../controlers/commandsSearch')
+const { Op } = require("sequelize");
 require('dotenv').config()
 
 module.exports = {
+    async searchCommands(req, res) {
+        
+        await searchCommands.search(req, res);
+
+    },
     async index(req, res) {
 
-        data = await Commands.findAll({ order: [['id']]});
-       
+        data = await Commands.findAll({ order: [['id']] });
+
 
         if (data == "" || data == null) {
             return res.status(404).send({ 'message': 'Commands not found' });
         }
 
-        return res.status(200).send({ 
+        return res.status(200).send({
             data,
-         });
+        });
 
     },
 
     async store(req, res) {
-        const { commands_name,make,obs,autor,category_id } = req.body;
+        const { commands_name, make, obs, autor, category_id } = req.body;
 
-        console.log(commands_name,make,obs,autor,category_id )
+        //console.log(commands_name, make, obs, autor, category_id)
 
-        if (!commands_name || !make || !category_id ){
+        if (!commands_name || !make || !category_id) {
             return res.status(400).send({
                 erro: true,
                 message: 'paramets invalid',
@@ -30,7 +37,7 @@ module.exports = {
             });
         }
 
-        
+
 
         data = await Commands.findOne({ where: { commands_name: commands_name } })
 
@@ -43,13 +50,13 @@ module.exports = {
             });
         }
 
-        const commands = await Commands.create({ 
+        const commands = await Commands.create({
             commands_name,
             make,
             obs,
             autor,
             category_id
-         });
+        });
 
         return res.status(200).send({
             erro: false,
@@ -62,9 +69,9 @@ module.exports = {
 
     async update(req, res) {
 
-        const { commands_name,make,obs,autor,category_id } = req.body;
+        const { commands_name, make, obs, autor, category_id } = req.body;
         const { command_id } = req.params;
-  
+
 
         const data = await Commands.findOne({ where: { id: command_id } })
 

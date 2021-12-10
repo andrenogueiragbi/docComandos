@@ -3,10 +3,8 @@ require('dotenv').config()
 
 module.exports = {
     async index(req, res) {
-
         data = await Categories.findAll({ order: [['id']]});
        
-
         if (data == "" || data == null) {
             return res.status(404).send({ 'message': 'Category not found' });
         }
@@ -106,7 +104,6 @@ module.exports = {
             deleted: data
 
         });
-
     }
 
 };
